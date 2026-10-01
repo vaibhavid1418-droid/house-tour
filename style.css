@@ -1,0 +1,104 @@
+/* ===== Theme tokens (light default, dark via system setting) ===== */
+:root {
+  --bg: #eef3ee;
+  --surface: rgba(255, 255, 255, .88);
+  --text: #1f2a22;
+  --muted: #667569;
+  --line: rgba(31, 42, 34, .12);
+  --accent: #6b8f71;       /* muted green */
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(107, 143, 113, .16);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10181a;
+    --surface: rgba(24, 34, 33, .9);
+    --text: #e6eee8;
+    --muted: #93a498;
+    --line: rgba(230, 238, 232, .14);
+    --accent: #86ad8c;
+    --accent-ink: #10181a;
+    --accent-soft: rgba(134, 173, 140, .2);
+  }
+}
+
+/* ===== Base layout: header / stage / panel in a column ===== */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  display: flex; flex-direction: column;
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg); color: var(--text);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  overflow: hidden;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ===== Header ===== */
+.top {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; flex: none;
+}
+.top h1 { margin: 0; font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; }
+
+/* ===== Segmented toggle groups ===== */
+.seg { display: inline-flex; padding: 3px; gap: 2px; background: var(--accent-soft); border-radius: 999px; }
+.seg button {
+  border: 0; background: transparent; padding: 7px 14px; border-radius: 999px;
+  font-weight: 500; font-size: .9rem; transition: background .2s, color .2s;
+}
+.seg button.on { background: var(--accent); color: var(--accent-ink); }
+
+/* ===== 3D stage ===== */
+.stage { position: relative; flex: 1; min-height: 0; touch-action: none; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+/* ===== Bottom panel ===== */
+.panel {
+  flex: none; margin: 0 10px 10px; padding: 12px 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 22px;
+  backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 10px;
+}
+.info { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; }
+.info h2 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.info p { margin: 2px 0 0; color: var(--muted); font-size: .88rem; }
+.info .total { text-align: right; }
+
+/* Scrollable room buttons */
+.rooms { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.rooms button {
+  flex: none; border: 1px solid var(--line); background: transparent;
+  padding: 7px 14px; border-radius: 999px; font-size: .9rem; white-space: nowrap;
+}
+.rooms button.on { background: var(--accent-soft); border-color: var(--accent); }
+
+/* Action rows */
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.btn {
+  border: 1px solid var(--line); background: transparent;
+  padding: 9px 16px; border-radius: 999px; font-weight: 500; font-size: .92rem;
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); }
+.btn[hidden] { display: none; }
+
+/* ===== Walk mode d-pad (touch / small screens only) ===== */
+.dpad { display: none; position: absolute; right: 12px; bottom: 12px; gap: 6px;
+  grid-template-columns: repeat(3, 52px); grid-template-rows: repeat(3, 52px); }
+.dpad button {
+  border: 1px solid var(--line); background: var(--surface); border-radius: 16px;
+  font-size: 1.1rem; touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.dpad button:active { background: var(--accent); color: var(--accent-ink); }
+@media (pointer: coarse), (max-width: 800px) {
+  body.walk .dpad { display: grid; }
+}
+
+/* ===== Small screens ===== */
+@media (max-width: 520px) {
+  .top h1 { font-size: 1.15rem; }
+  .seg button { padding: 6px 10px; font-size: .84rem; }
+  .btn { padding: 8px 12px; font-size: .86rem; }
+  .info .total { font-size: .8rem; }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>House tour</title>
+  <!-- Outfit font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header: title + layout toggles -->
+  <header class="top">
+    <h1>House tour</h1>
+    <div class="seg" id="bhk" role="group" aria-label="Layout">
+      <button data-plan="1" class="on">1 BHK</button>
+      <button data-plan="2">2 BHK</button>
+      <button data-plan="3">3 BHK</button>
+    </div>
+  </header>
+
+  <!-- 3D stage (canvas is inserted here) -->
+  <main class="stage" id="stage">
+    <!-- On-screen movement arrows (walk mode, touch / small screens) -->
+    <div class="dpad" id="dpad" aria-label="Move">
+      <button data-k="f" style="grid-area:1/2" aria-label="Forward">▲</button>
+      <button data-k="l" style="grid-area:2/1" aria-label="Left">◀</button>
+      <button data-k="r" style="grid-area:2/3" aria-label="Right">▶</button>
+      <button data-k="b" style="grid-area:3/2" aria-label="Back">▼</button>
+    </div>
+  </main>
+
+  <!-- Bottom panel -->
+  <section class="panel">
+    <div class="info">
+      <div>
+        <h2 id="roomName">Overview</h2>
+        <p id="roomSize">Whole house</p>
+      </div>
+      <p class="total" id="total"></p>
+    </div>
+
+    <div class="rooms" id="rooms"></div>
+
+    <div class="row">
+      <button class="btn primary" id="tourBtn">Start tour</button>
+      <button class="btn" id="walkBtn">Walk mode</button>
+      <button class="btn" id="exitBtn" hidden>Exit walk mode</button>
+      <button class="btn" id="overviewBtn">Overview</button>
+    </div>
+
+    <div class="row">
+      <button class="btn" id="furnBtn" aria-pressed="true">Furniture</button>
+      <div class="seg" id="styles" role="group" aria-label="Furniture style">
+        <button data-style="modern" class="on">Modern</button>
+        <button data-style="classic">Classic</button>
+        <button data-style="minimal">Minimal</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three.js r128 (cdnjs) + OrbitControls (jsdelivr) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
